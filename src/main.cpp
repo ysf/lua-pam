@@ -34,6 +34,9 @@ static int auth_current_user(lua_State *L) {
         reply->resp_retcode = 0;
 
         retval = pam_authenticate(pamh, 0);
+       
+        if (retval == PAM_SUCCESS)
+           retval = pam_acct_mgmt(pamh, 0);
     }
 
     /* This is where we have been authorized or not. */
